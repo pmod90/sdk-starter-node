@@ -18,6 +18,11 @@ function camelCaseKeys(hashmap) {
 };
 
 router.get('/token/:id?', (req, res) => {
+
+  // allow CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
   const id = req.params.id;
   res.send(tokenGenerator(id));
 });
