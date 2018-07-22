@@ -5,6 +5,7 @@ const tokenGenerator = require('./token_generator');
 const config = require('./config');
 
 const router = new Router();
+const axios = require("axios");
 
 // Convert keys to camelCase to conform with the twilio-node api definition contract
 const camelCase = require('camelcase');
@@ -53,6 +54,27 @@ router.get('/config', (req, res) => {
   res.json(config);
 });
 
+router.get('/foursquare/currentlocation', (req, res) => {
+  console.log(req.params);
+  
+  axios.get('https://api.foursquare.com/v2/venues/search', {
+    params: {
+      client_id: process.env.FOUR_SQUARE_CLIENTID,
+      client_secret: process.env.FOUR_SQUARE_CLIENT_SECERET,
+      ll: `${req.query.lat},${req.query.long}`,
+      radius: '250',
+      v:"20180323",
+      limit: "20"     
+    }
+  })
+  .then(function (response) {
+    console.log(response);
+    res.send(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+});
 
 //Create a facebook-messenger binding based on the authentication webhook from Facebook
 router.post('/messenger_auth', function(req, res) {
