@@ -68,11 +68,10 @@ router.get('/foursquare/currentlocation', (req, res) => {
     }
   })
   .then(function (response) {
-    console.log(response);
     res.send(response.data);
   })
   .catch(function (error) {
-    console.log(error);
+    console.error(error);
   })
 });
 
