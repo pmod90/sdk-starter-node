@@ -68,6 +68,10 @@ router.get('/foursquare/currentlocation', (req, res) => {
     }
   })
   .then(function (response) {
+    
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  
     res.send(response.data);
   })
   .catch(function (error) {
