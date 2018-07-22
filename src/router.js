@@ -71,7 +71,8 @@ router.get('/foursquare/currentlocation', (req, res) => {
     res.send(response.data);
   })
   .catch(function (error) {
-    console.error(error);
+    res.status(error.response.status);
+    res.send(error.message);
   })
 });
 
